@@ -3,7 +3,7 @@ package roles_test
 import (
 	"testing"
 
-	"github.com/code-and-chill/auth/roles"
+	"github.com/code-and-chill/roles"
 )
 
 func TestAllow(t *testing.T) {
@@ -70,7 +70,7 @@ func TestCRUD(t *testing.T) {
 }
 
 func TestAll(t *testing.T) {
-	permission := roles.Allow(roles.Update, roles.Anyone)
+	permission := roles.Allow(roles.Update, "*")
 
 	if permission.HasPermission(roles.Read, "api") {
 		t.Errorf("API should has no permission to Read")
@@ -80,7 +80,7 @@ func TestAll(t *testing.T) {
 		t.Errorf("API should has permission to Update")
 	}
 
-	permission2 := roles.Deny(roles.Update, roles.Anyone)
+	permission2 := roles.Deny(roles.Update, "*")
 
 	if !permission2.HasPermission(roles.Read, "api") {
 		t.Errorf("API should has permission to Read")
